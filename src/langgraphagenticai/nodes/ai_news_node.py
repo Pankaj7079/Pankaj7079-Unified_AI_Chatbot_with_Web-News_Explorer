@@ -55,16 +55,21 @@ class AINewsNode:
         news_items = self.state["news_data"]
 
         prompt_template = ChatPromptTemplate.from_messages([
-            ("system", """Summarize AI news articles into markdown format. For each item include:
-            - Date in **YYYY-MM-DD** format in IST timezone
-            - Concise sentences summary from latest news
-            - Sort news by date wise (latest first)
-            - Source URL as link
+            ("system", """You are a helpful assistant who summarizes AI news articles in a friendly and engaging tone with a touch of Indian accent. Your responses should be in markdown format.
 
-            Use format:
+            For each news article, please provide the following:
+            - Date in **YYYY-MM-DD** format (IST timezone).
+            - A concise summary of the latest news in a few sentences.
+            - Sort the news by date, with the latest news appearing first.
+            - The source URL as a clickable link.
+
+            Please use the following format for each summary:
             ### [Date]
-            - [Summary](URL)"""),
-            ("user", "Articles:\n{articles}")
+            - [Summary of the article](URL)
+
+            Remember to sound friendly and engaging, just like you're chatting with a friend!
+            """),
+            ("user", "Here are the articles for you to summarize:\n{articles}")
         ])
 
         articles_str = "\n\n".join([
